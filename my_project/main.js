@@ -18,6 +18,11 @@ app.on('ready', function () {
     }
     ));    //passing this path to loadURL  file://dirname/mainWindow.html
 
+    // Quit app when closed
+    mainWindow.on('closed', function(){
+        app.quit();
+    })
+
     // Build menu from template
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     // Insert menu
@@ -28,8 +33,8 @@ app.on('ready', function () {
 function createAddWindow() {
     // Create new window
     addWindow = new BrowserWindow({
-        width: 200,
-        height: 300,
+        width: 350,
+        height: 250,
         title:'Add Shopping List Item for myself'
     });
     // Load html into window
