@@ -19,7 +19,7 @@ app.on('ready', function () {
     ));    //passing this path to loadURL  file://dirname/mainWindow.html
 
     // Quit app when closed
-    mainWindow.on('closed', function(){
+    mainWindow.on('closed', function () {
         app.quit();
     })
 
@@ -35,7 +35,7 @@ function createAddWindow() {
     addWindow = new BrowserWindow({
         width: 350,
         height: 250,
-        title:'Add Shopping List Item for myself'
+        title: 'Add Shopping List Item for myself'
     });
     // Load html into window
     addWindow.loadURL(url.format({
@@ -43,8 +43,11 @@ function createAddWindow() {
         protocol: 'file:',
         slashes: true
     }
-    ));    //passing this path to loadURL  file://dirname/mainWindow.html
-
+    ));
+    // Garbage Collection handle
+    addWindow.on('close', function () {
+        addWindow = null
+    });
 }
 // Create menu template
 const mainMenuTemplate = [ // In Electron, menu is an array of object
@@ -53,7 +56,7 @@ const mainMenuTemplate = [ // In Electron, menu is an array of object
         submenu: [
             {
                 label: 'Add Some Item',
-                click(){
+                click() {
                     createAddWindow();
                 }
 
@@ -72,3 +75,26 @@ const mainMenuTemplate = [ // In Electron, menu is an array of object
         ]
     }
 ];
+
+// If mac, add empty object to menu
+if (process.platform == 'darwin') {
+    mainMenuTemplate.unshift({}); // Push new item to beginning
+}
+
+// Add developer tools item if not in production
+if (process.env.NODE_ENV !== 'production') {
+    mainMenuTemplate.push({ // Append items
+        label: 'Developer Tools',
+        submenu: [
+            {
+                label: 'Toggle Dev Tools',
+                accelerator: process.platform == 'darwin' ? 'Command+Q' : 'Ctrl+Q',
+                click(item, focusedWindow) { // Make sure the dev show up to the correct window (the focus one)
+                    focusedWindow.toggleDevTools();
+                }
+            },
+            { role: 'reload' }
+        ]
+    })
+
+}
