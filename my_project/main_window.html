@@ -22,14 +22,23 @@
             ul.appendChild(li);
 
         })
-        ,
-            // Clear item
-        ipcRenderer.on('item:clear', function(e){
-        ul.innerHTML = '';   
-        console.log('clear item')     
-    }
-
+            
+        // Clear item
+        ipcRenderer.on('item:clear', function (e) {
+            ul.innerHTML = ''
+            console.log('clear item')
+        }
         )
+
+        // Remove item
+        ul.addEventListener('dblclick', removeItem);
+
+        function removeItem(e) {
+            e.target.remove()
+        }
+
+
+
     </script>
 </body>
 
