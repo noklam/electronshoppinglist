@@ -50,7 +50,7 @@ function createAddWindow() {
     });
 }
 
-// Catch item:add
+//  item:add
 ipcMain.on('item:add', function(e, item){
     console.log(item); // debugging if item send from addWindow to Main
     mainWindow.webContents.send('item:add', item);
@@ -71,7 +71,10 @@ const mainMenuTemplate = [ // In Electron, menu is an array of object
 
             },
             {
-                label: 'Clear Items'
+                label: 'Clear Items',
+                click(){
+                    mainWindow.webContents.send('item:clear');
+                }
             },
             {
                 label: 'Quit',
