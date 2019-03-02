@@ -27,8 +27,8 @@ app.on('ready', function () {
 // Create menu template
 const mainMenuTemplate = [ // In Electron, menu is an array of object
     {
-        label:'File',
-        submenu:[
+        label: 'File',
+        submenu: [
             {
                 label: 'Add Some Item'
             },
@@ -36,12 +36,13 @@ const mainMenuTemplate = [ // In Electron, menu is an array of object
                 label: 'Clear Items'
             },
             {
-                label:'Quit',
-                click(){
+                label: 'Quit',
+                accelerator: process.platform == 'darwin' ? 'Command+Q' : 'Ctrl+Q',
+                click() {
                     app.quit(); // Shutdown the app
-                                }
+                }
             }
-            
+
         ]
     }
 ];
