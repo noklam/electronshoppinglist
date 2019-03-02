@@ -15,7 +15,7 @@
 
     <script>
         const electron = require('electron')
-        const { ipcRender } = electron;// Curly brace is needed
+        const {ipcRenderer} = electron;// Curly brace is needed
 
         const form = document.querySelector('form');
         form.addEventListener('submit', submitForm);
@@ -24,7 +24,7 @@
             e.preventDefault(); // prevent submit form to file
             console.log(123); // debug from dev tools, comment previous line to see behavior
             const item = document.querySelector('#item').value;
-
+            ipcRenderer.send('item:add', item); // Similar to Socket.io, sending data with name to main.js
         }
     </script>
 </body>

@@ -2,7 +2,7 @@ const electron = require('electron');
 const url = require('url');
 const path = require('path');
 
-const { app, BrowserWindow, Menu } = electron;
+const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let mainWindow;
 let addWindow;
@@ -49,6 +49,15 @@ function createAddWindow() {
         addWindow = null
     });
 }
+
+// Catch item:add
+ipcMain.on('item:add', function(e, item){
+    console.log(item); // debugging if item send from addWindow to Main
+    mainWindow.webContents.send('item:add', item);
+    addWindow.close();
+}); // When this happen, we call a function
+
+
 // Create menu template
 const mainMenuTemplate = [ // In Electron, menu is an array of object
     {
@@ -88,7 +97,7 @@ if (process.env.NODE_ENV !== 'production') {
         submenu: [
             {
                 label: 'Toggle Dev Tools',
-                accelerator: process.platform == 'darwin' ? 'Command+Q' : 'Ctrl+Q',
+                accelerator: process.platform == 'darwin' ? 'Command+T' : 'Ctrl+T',
                 click(item, focusedWindow) { // Make sure the dev show up to the correct window (the focus one)
                     focusedWindow.toggleDevTools();
                 }
