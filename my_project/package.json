@@ -1,0 +1,14 @@
+{
+  "name": "nokshoppinglist",
+  "version": "1.0.0",
+  "description": "first attempt",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "nok",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^4.0.6"
+  }
+}
