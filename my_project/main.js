@@ -4,6 +4,9 @@ const path = require('path');
 
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 
+// SET ENV
+process.env.NODE_ENV = 'production';
+
 let mainWindow;
 let addWindow;
 // Listen for app to be ready
@@ -65,6 +68,7 @@ const mainMenuTemplate = [ // In Electron, menu is an array of object
         submenu: [
             {
                 label: 'Add Some Item',
+                accelerator: process.platform == 'darwin' ? 'Command+N' : 'Ctrl+N',
                 click() {
                     createAddWindow();
                 }
@@ -105,7 +109,8 @@ if (process.env.NODE_ENV !== 'production') {
                     focusedWindow.toggleDevTools();
                 }
             },
-            { role: 'reload' }
+            { role: 'reload' },
+            { role: 'forcereload'}
         ]
     })
 
