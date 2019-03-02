@@ -11,6 +11,22 @@
             <input type="text" id="item" autofocus></div>
         <button type="submit">add Item</button>
     </form>
+
+
+    <script>
+        const electron = require('electron')
+        const { ipcRender } = electron;// Curly brace is needed
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', submitForm);
+
+        function submitForm(e) {
+            e.preventDefault(); // prevent submit form to file
+            console.log(123); // debug from dev tools, comment previous line to see behavior
+            const item = document.querySelector('#item').value;
+
+        }
+    </script>
 </body>
 
 </html>
